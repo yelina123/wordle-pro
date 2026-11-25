@@ -2,135 +2,63 @@
 <html lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>WORDLE 五/六字母猜词</title>
+<script type="text/javascript">
+(function(){
+  var ua = navigator.userAgent || "";
+  if (!/Kindle\//i.test(ua)) {
+    var m = document.createElement("meta");
+    m.name = "viewport";
+    m.content = "width=device-width, initial-scale=1, maximum-scale=1";
+    document.getElementsByTagName("head")[0].appendChild(m);
+  }
+})();
+</script>
+<title>WORDLE 5/6 字母猜词</title>
 <style type="text/css">
-body{margin:0;padding:0;background:#ffffff;color:#000000;font-family:Helvetica,Arial,"Heiti SC","SimHei",sans-serif;font-size:15px;-webkit-text-size-adjust:none;}
-#app{max-width:640px;margin:0 auto;padding:0 0.5em 0.8em 0.5em;}
-.topbar{overflow:hidden;border-bottom:2px solid #000000;padding:0.35em 0 0.3em 0;}
-.brand{font-size:1.35em;font-weight:bold;letter-spacing:0.1em;}
-.sub{font-size:0.78em;color:#666666;margin-left:0.45em;}
-#tools{float:right;padding-top:0.12em;}
-button{font-family:Helvetica,Arial,"Heiti SC","SimHei",sans-serif;}
-.mini{font-size:0.85em;padding:0.3em 0.55em;margin-left:0.28em;border:1px solid #000000;background:#ffffff;color:#000000;}
-.h1{font-size:1.1em;font-weight:bold;margin:0.9em 0 0.1em 0;}
-.sect{margin-top:0.65em;}
-.label{font-size:0.95em;font-weight:bold;margin-bottom:0.35em;}
-.opt{font-size:0.95em;padding:0.45em 0.8em;border:2px solid #000000;background:#ffffff;color:#000000;margin:0 0.3em 0.35em 0;}
-.opt.on{background:#000000;color:#ffffff;}
-.big{font-size:1.02em;padding:0.5em 0.9em;border:2px solid #000000;background:#ffffff;color:#000000;}
-.primary{background:#000000;color:#ffffff;}
-.wide{width:100%;}
-.note{font-size:0.8em;color:#555555;line-height:1.45;margin-top:0.3em;}
-.bar{overflow:hidden;height:1.55em;margin-top:0.3em;font-size:0.85em;}
-.bar .left{float:left;margin-right:0.8em;}
-.bar .right{float:right;color:#444444;white-space:nowrap;}
-.grid{border-collapse:separate;border-spacing:0.2em;margin:0.1em auto 0 auto;table-layout:fixed;}
-td.cell{height:2.15em;border:2px solid #bbbbbb;text-align:center;vertical-align:middle;font-size:1.55em;font-weight:bold;}
+body{margin:0;padding:0;touch-action:manipulation;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;background:#ffffff;color:#000000;font-family:Helvetica,Arial,"Heiti SC","SimHei",sans-serif;font-size:16px;-webkit-text-size-adjust:none;}
+#app{margin:0 auto;}
+table{border-collapse:separate;}
+td{padding:0;}
+button{-webkit-appearance:none;appearance:none;border-radius:0;font-family:inherit;}
+.topbar{border-bottom:0;}
+.brand{font-weight:bold;letter-spacing:0.06em;}
+.sub{color:#666666;}
+.tbtn{border:2px solid #000000;background:#ffffff;color:#000000;font-weight:bold;padding:0 12px;margin-left:8px;}
+.tbtn.primary{background:#000000;color:#ffffff;}
+.status{overflow:hidden;padding:0 6px;line-height:1.1;}
+.status .l{float:left;}
+.status .r{float:right;color:#555555;margin-left:14px;white-space:nowrap;}
+.status .m{float:right;color:#333333;white-space:nowrap;}
+td.cell{border:2px solid #bbbbbb;text-align:center;font-weight:bold;background:#ffffff;padding:0;}
 td.cell.on{border-color:#000000;}
 td.cell.s2{background:#000000;border-color:#000000;color:#ffffff;}
 td.cell.s1{background:#777777;border-color:#777777;color:#ffffff;}
 td.cell.s0{background:#ffffff;border-color:#dddddd;color:#b0b0b0;}
-.result{margin:0.45em 0 0.15em 0;border:2px solid #000000;padding:0.5em 0.65em;}
-.result .rt{font-size:0.9em;}
-.result .rw{font-size:1.85em;font-weight:bold;letter-spacing:0.12em;margin:0.1em 0;}
-.result .rg{font-size:1em;margin-bottom:0.4em;}
-.actionrow{width:100%;border-collapse:separate;border-spacing:0.3em;margin-top:0.2em;}
-.actionrow td{width:33%;}
-.act{width:100%;font-size:1em;padding:0.45em 0;border:2px solid #000000;background:#ffffff;color:#000000;}
-.pad{border-collapse:separate;border-spacing:0.16em;width:100%;table-layout:fixed;margin:0.1em auto 0 auto;}
-td.key{height:2.8em;border:1px solid #000000;text-align:center;vertical-align:middle;font-size:0.95em;font-weight:bold;background:#ffffff;color:#000000;}
+td.key{border:1px solid #000000;text-align:center;font-weight:bold;background:#ffffff;padding:0;}
 td.key.k2{background:#000000;color:#ffffff;border-color:#000000;}
 td.key.k1{background:#777777;color:#ffffff;border-color:#777777;}
 td.key.k0{background:#dcdcdc;color:#888888;border-color:#bbbbbb;}
-.alpha{width:100%;border-collapse:separate;border-spacing:0.22em;table-layout:fixed;margin-top:0.4em;}
-td.acell{height:2.6em;border:1px solid #000000;text-align:center;vertical-align:middle;font-size:1.3em;font-weight:bold;background:#ffffff;}
+.opt{border:2px solid #000000;background:#ffffff;color:#000000;font-weight:bold;padding:0;}
+.opt.on{background:#000000;color:#ffffff;}
+.btn{border:2px solid #000000;background:#ffffff;color:#000000;font-weight:bold;padding:0;}
+.btn.primary{background:#000000;color:#ffffff;}
+.btn.ghost{border-color:#999999;color:#777777;}
+td.acell{border:1px solid #000000;text-align:center;font-weight:bold;background:#ffffff;padding:0;}
 td.acell.a2{background:#000000;color:#ffffff;border-color:#000000;}
 td.acell.a1{background:#777777;color:#ffffff;border-color:#777777;}
 td.acell.a0{background:#dcdcdc;color:#888888;border-color:#bbbbbb;}
 td.acell.na{border:0;background:#ffffff;}
-.legendbox{border-top:1px solid #999999;margin-top:1em;padding-top:0.5em;}
+.panel{border:3px solid #000000;background:#ffffff;}
+.note{color:#555555;line-height:1.45;}
+.small{font-size:13px;color:#666666;}
+.hr{border-top:1px solid #999999;}
 </style>
 </head>
 <body onload="init()">
-<div id="app">
-  <div class="topbar">
-    <span class="brand">WORDLE</span><span class="sub">5 / 6 字母猜词</span>
-    <div id="tools" style="display:none">
-      <button class="mini" onclick="startGame()">新一局</button>
-      <button class="mini" onclick="openSetup()">设置</button>
-    </div>
-  </div>
-
-  <div id="setup">
-    <div class="h1">选择玩法</div>
-    <div class="sect">
-      <div class="label">每局猜词次数</div>
-      <button class="opt" id="optT5" onclick="setOpt('tries',5)">5 次</button>
-      <button class="opt" id="optT6" onclick="setOpt('tries',6)">6 次</button>
-    </div>
-    <div class="sect">
-      <div class="label">单词长度</div>
-      <button class="opt" id="optL5" onclick="setOpt('len',5)">5 个字母</button>
-      <button class="opt" id="optL6" onclick="setOpt('len',6)">6 个字母</button>
-      <div class="note">5 字母和 6 字母各有一套词库，可以和 5／6 次自由组合。</div>
-    </div>
-    <div class="sect">
-      <div class="label">词库档位</div>
-      <button class="opt" id="optE" onclick="setOpt('level','e')">简单档 · 高中</button>
-      <button class="opt" id="optH" onclick="setOpt('level','h')">难档 · 进阶</button>
-      <div class="note">简单档取高中阶段应掌握的常见词；难档取四六级、托福及更生僻的词。</div>
-    </div>
-    <div class="sect">
-      <div class="label">词形过滤</div>
-      <button class="opt" id="optF1" onclick="setOpt('filter',1)">仅原型</button>
-      <button class="opt" id="optF0" onclick="setOpt('filter',0)">含变形词</button>
-      <div class="note">“仅原型”排除 asked、going、plays、broken 这类变形词，只留原形。</div>
-    </div>
-    <div class="sect">
-      <button class="big primary wide" onclick="startGame()">开始游戏</button>
-    </div>
-    <div class="note" id="stats">已玩 0 局 · 胜 0 局</div>
-    <div class="legendbox">
-      <div class="label">怎么看结果</div>
-      <div class="note">黑底：字母和位置都对；灰底：字母在答案里但位置不对；浅灰淡字：答案里没有这个字母。</div>
-      <div class="note">点“字母表”可以查看 26 个字母的使用情况，方便下一步猜词。</div>
-      <div class="note">猜中或机会用完时，会显示答案和一句中文释义。</div>
-    </div>
-  </div>
-
-  <div id="game" style="display:none">
-    <div class="bar">
-      <span class="left" id="levelTag"></span>
-      <span class="left" id="tryLeft"></span>
-      <span class="right" id="msg"></span>
-    </div>
-    <div id="gridBox"></div>
-    <div id="result" style="display:none"></div>
-    <table class="actionrow" id="actionRow"><tr>
-      <td><button class="act" id="btnSubmit" onclick="submitGuess()">提交</button></td>
-      <td><button class="act" id="btnDel" onclick="delLetter()">删除</button></td>
-      <td><button class="act" onclick="openAlpha()">字母表</button></td>
-    </tr></table>
-    <div id="padBox"></div>
-  </div>
-
-  <div id="alpha" style="display:none">
-    <div class="bar">
-      <span class="left">字母表</span>
-      <span class="right"><button class="mini" onclick="closeAlpha()">返回游戏</button></span>
-    </div>
-    <div id="alphaBody"></div>
-    <div class="note" id="alphaInfo"></div>
-    <div class="legendbox">
-      <div class="note">黑底＝字母和位置都对；灰底＝有这个字母但位置不对；浅灰＝答案里没有；白底＝还没猜过。</div>
-    </div>
-  </div>
-</div>
-
+<div id="app"></div>
 <noscript>
-<div style="padding:1em;border:2px solid #000;margin:1em;">本游戏需要 JavaScript。请在 Kindle 浏览器的设置里开启 JavaScript，然后刷新本页。</div>
+<div style="padding:16px;border:2px solid #000;margin:16px;font-size:16px;">本游戏需要 JavaScript。请在 Kindle 浏览器的设置里开启 JavaScript，然后刷新本页。</div>
 </noscript>
-
 <script type="text/javascript">
 var BANK = [];
 var RAW5 = "apple|苹果|e|b;water|水|e|b;music|音乐|e|b;movie|电影|e|b;river|河流|e|b;ocean|海洋|e|b;light|光；明亮的；轻的|e|b;night|夜晚|e|b;white|白色的|e|b;black|黑色的|e|b;green|绿色的|e|b;brown|棕色的|e|b;chair|椅子|e|b;table|桌子|e|b;phone|电话|e|b;radio|收音机|e|b;clock|时钟|e|b;watch|手表；观看|e|b;glass|玻璃；玻璃杯|e|b;plate|盘子|e|b;knife|刀|e|b;spoon|勺子|e|b;bread|面包|e|b;fruit|水果|e|b;juice|果汁|e|b;sugar|糖|e|b;sweet|甜的|e|b;taste|味道；品尝|e|b;smell|气味；闻|e|b;touch|触摸|e|b;sound|声音|e|b;voice|嗓音|e|b;speak|说话|e|b;write|书写|e|b;study|学习；研究|e|b;learn|学习|e|b;teach|教|e|b;class|班级；课|e|b;paper|纸；论文|e|b;board|木板；董事会|e|b;story|故事|e|b;magic|魔法|e|b;dream|梦；梦想|e|b;sleep|睡觉|e|b;early|早的|e|b;today|今天|e|b;month|月份|e|b;birth|出生|e|b;child|孩子|e|b;woman|女人|e|b;human|人类|e|b;world|世界|e|b;earth|地球；泥土|e|b;space|太空；空间|e|b;sunny|晴朗的|e|b;cloud|云|e|b;windy|有风的|e|b;storm|暴风雨|e|b;beach|海滩|e|b;coast|海岸|e|b;field|田野；领域|e|b;grass|草|e|b;plant|植物；种植|e|b;horse|马|e|b;sheep|绵羊|e|b;tiger|老虎|e|b;mouse|老鼠|e|b;snake|蛇|e|b;whale|鲸|e|b;shark|鲨鱼|e|b;panda|熊猫|e|b;house|房子|e|b;hotel|旅馆|e|b;store|商店；储存|e|b;photo|照片|e|b;video|视频|e|b;dance|跳舞|e|b;party|聚会；政党|e|b;money|钱|e|b;price|价格|e|b;cheap|便宜的|e|b;trade|贸易|e|b;nurse|护士|e|b;actor|演员|e|b;sport|运动|e|b;match|比赛；火柴|e|b;score|得分|e|b;coach|教练；长途汽车|e|b;prize|奖品|e|b;medal|奖牌|e|b;visit|参观；拜访|e|b;tower|塔|e|b;lucky|幸运的|e|b;angry|生气的|e|b;tired|疲倦的|e|b;brave|勇敢的|e|b;smart|聪明的|e|b;funny|滑稽的|e|b;quiet|安静的|e|b;noisy|吵闹的|e|b;heavy|重的|e|b;great|伟大的|e|b;small|小的|e|b;large|大的|e|b;short|短的；矮的|e|b;thick|厚的|e|b;round|圆的|e|b;shape|形状|e|b;color|颜色|e|b;paint|油漆；绘画|e|b;brush|刷子|e|b;smile|微笑|e|b;laugh|笑|e|b;shout|喊叫|e|b;point|点；指向|e|b;count|数；计算|e|b;drama|戏剧|e|b;comic|漫画|e|b;humor|幽默|e|b;hobby|爱好|e|b;habit|习惯|e|b;grade|年级；分数|e|b;novel|小说|e|b;email|电子邮件|e|b;wheel|轮子|e|b;train|火车；训练|e|b;plane|飞机；平面|e|b;truck|卡车|e|b;cross|穿过；十字|e|b;front|前面|e|b;right|正确的；右边|e|b;north|北方|e|b;south|南方|e|b;uncle|叔叔|e|b;guest|客人|e|b;owner|主人|e|b;staff|员工|e|b;group|小组|e|b;style|风格|e|b;model|模型；模特|e|b;floor|地板|e|b;stair|楼梯|e|b;towel|毛巾|e|b;eagle|鹰|e|b;eager|渴望的|e|b;empty|空的|e|b;enemy|敌人|e|b;enjoy|享受|e|b;entry|入口|e|b;extra|额外的|e|b;elbow|肘|e|b;elder|年长的|e|b;depth|深度|e|b;diary|日记|e|b;dizzy|头晕的|e|b;dodge|躲避|e|b;abyss|深渊|h|b;adept|熟练的|h|b;agile|敏捷的|h|b;aisle|过道|h|b;alibi|不在场证明|h|b;allot|分配|h|b;aloof|冷淡的|h|b;amass|积聚|h|b;amend|修正|h|b;aroma|香气|h|b;attic|阁楼|h|b;audit|审计|h|b;avert|避免|h|b;axiom|公理|h|b;badge|徽章|h|b;balmy|温和的|h|b;banjo|班卓琴|h|b;barge|驳船|h|b;baron|男爵|h|b;basil|罗勒|h|b;basin|盆；流域|h|b;batch|一批|h|b;baton|指挥棒|h|b;befit|适合|h|b;beget|产生|h|b;belle|美女|h|b;beret|贝雷帽|h|b;berth|卧铺|h|b;beset|困扰|h|b;binge|放纵|h|b;bison|野牛|h|b;blare|发出刺耳声|h|b;bleat|咩咩叫|h|b;blimp|飞艇|h|b;bliss|极乐|h|b;bloat|膨胀|h|b;bluff|虚张声势|h|b;blunt|钝的；直率的|h|b;blurt|脱口而出|h|b;blush|脸红|h|b;boast|吹嘘|h|b;bogus|假的|h|b;booth|摊位|h|b;bosom|胸怀|h|b;bough|大树枝|h|b;brawl|斗殴|h|b;brawn|肌肉；体力|h|b;breed|繁殖；品种|h|b;bribe|贿赂|h|b;brine|盐水|h|b;brisk|轻快的|h|b;broil|烤|h|b;brook|小溪|h|b;broth|肉汤|h|b;brunt|冲击|h|b;budge|挪动|h|b;bugle|号角|h|b;bulge|凸起|h|b;bully|欺凌|h|b;bunch|一串|h|b;burly|魁梧的|h|b;burro|小毛驴|h|b;cadet|军校学员|h|b;cameo|客串；浮雕|h|b;carat|克拉|h|b;caste|种姓|h|b;cedar|雪松|h|b;chide|责骂|h|b;chord|和弦|h|b;chore|家务|h|b;chunk|大块|h|b;cider|苹果酒|h|b;clasp|紧握；扣子|h|b;clove|丁香|h|b;clump|丛；块|h|b;comet|彗星|h|b;comfy|舒适的|h|b;conch|海螺|h|b;condo|公寓|h|b;coral|珊瑚|h|b;covet|贪求|h|b;crane|起重机；鹤|h|b;crave|渴望|h|b;creed|信条|h|b;creek|小溪|h|b;crest|顶峰|h|b;crimp|压褶|h|b;croak|呱呱叫|h|b;crony|密友|h|b;crumb|面包屑|h|b;crush|压碎；迷恋|h|b;crypt|地穴|h|b;cubic|立方体的|h|b;curry|咖喱|h|b;curse|诅咒|h|b;cynic|愤世嫉俗者|h|b;debit|借方|h|b;decal|贴花|h|b;decoy|诱饵|h|b;decor|装饰|h|b;deign|屈尊|h|b;delta|三角洲|h|b;demon|恶魔|h|b;denim|牛仔布|h|b;depot|仓库；车站|h|b;derby|德比|h|b;deter|阻止|h|b;dicey|冒险的|h|b;digit|数字|h|b;dingy|昏暗的|h|b;diode|二极管|h|b;dirge|挽歌|h|b;ditch|沟|h|b;diver|潜水员|h|b;dogma|教条|h|b;donor|捐赠者|h|b;dough|面团|h|b;downy|柔软的|h|b;dowry|嫁妆|h|b;drape|垂挂|h|b;dread|恐惧|h|b;duchy|公国|h|b;dunce|笨人|h|b;dusky|昏暗的|h|b;dusty|布满灰尘的|h|b;duvet|羽绒被|h|b;dwarf|矮人|h|b;dwell|居住|h|b;easel|画架|h|b;ebony|乌木|h|b;eerie|诡异的|h|b;egret|白鹭|h|b;elegy|挽歌|h|b;elite|精英|h|b;elope|私奔|h|b;elude|逃避|h|b;embed|嵌入|h|b;ember|余烬|h|b;enact|制定|h|b;ensue|接着发生|h|b;envoy|使者|h|b;epoch|时代|h|b;equip|装备|h|b;erode|侵蚀|h|b;erupt|爆发|h|b;ethos|精神特质|h|b;evade|逃避|h|b;evict|驱逐|h|b;evoke|唤起|h|b;exalt|赞扬|h|b;excel|擅长|h|b;exert|施加|h|b;exile|流放|h|b;expel|驱逐|h|b;exude|流露|h|b;fable|寓言|h|b;facet|方面|h|b;faint|昏厥；微弱的|h|b;fairy|仙女|h|b;fatal|致命的|h|b;fault|过错|h|b;fauna|动物群|h|b;feign|假装|h|b;ferry|渡轮|h|b;fetch|取来|h|b;fetid|恶臭的|h|b;fetus|胎儿|h|b;fiber|纤维|h|b;fiery|火热的|h|b;filly|小母马|h|b;filth|污物|h|b;finch|雀|h|b;flair|天资|h|b;flare|闪耀|h|b;flask|烧瓶|h|b;fleet|舰队|h|b;flesh|肉|h|b;flick|轻弹|h|b;flint|打火石|h|b;flirt|调情|h|b;float|漂浮|h|b;flock|群|h|b;flood|洪水|h|b;flora|植物群|h|b;floss|牙线|h|b;flour|面粉|h|b;flout|蔑视|h|b;fluke|侥幸|h|b;flute|长笛|h|b;focal|焦点的|h|b;foggy|有雾的|h|b;foist|强加|h|b;foray|突袭|h|b;forge|锻造|h|b;forgo|放弃|h|b;forte|长处|h|b;forth|向前|h|b;foyer|门厅|h|b;frail|虚弱的|h|b;frank|坦率的|h|b;fraud|欺诈|h|b;freak|怪人|h|b;fresh|新鲜的|h|b;friar|修士|h|b;frisk|搜身|h|b;frock|连衣裙|h|b;frond|叶|h|b;frost|霜|h|b;froth|泡沫|h|b;frown|皱眉|h|b;fudge|软糖|h|b;fugue|赋格曲|h|b;fungi|真菌|h|b;fussy|挑剔的|h|b;fuzzy|毛茸茸的|h|b;gauge|量规|h|b;gaunt|憔悴的|h|b;gavel|木槌|h|b;gawky|笨拙的|h|b;gecko|壁虎|h|b;geese|鹅|h|b;genre|流派|h|b;ghost|鬼|h|b;ghoul|食尸鬼|h|b;giant|巨人|h|b;giddy|头晕的|h|b;girth|周长|h|b;glade|林间空地|h|b;gland|腺|h|b;glare|怒视|h|b;gleam|微光|h|b;glide|滑行|h|b;gloom|忧郁|h|b;glory|荣耀|h|b;gloss|光泽|h|b;glove|手套|h|b;glyph|字形|h|b;gnome|侏儒|h|b;godly|虔诚的|h|b;goner|无望的人|h|b;gooey|黏糊糊的|h|b;gorge|峡谷|h|b;gouge|凿|h|b;gourd|葫芦|h|b;grail|圣杯|h|b;grain|谷物|h|b;grand|宏伟的|h|b;grant|授予|h|b;grape|葡萄|h|b;graph|图表|h|b;grasp|抓住|h|b;grave|坟墓；严重的|h|b;gravy|肉汁|h|b;graze|吃草|h|b;greed|贪婪|h|b;greet|问候|h|b;grief|悲伤|h|b;grill|烤架|h|b;grimy|肮脏的|h|b;grind|磨|h|b;gripe|抱怨|h|b;groan|呻吟|h|b;groom|新郎|h|b;grope|摸索|h|b;gross|总的；粗俗的|h|b;grove|小树林|h|b;growl|咆哮|h|b;grunt|咕哝|h|b;guava|番石榴|h|b;guide|指导；向导|h|b;guild|行会|h|b;guile|狡诈|h|b;guilt|内疚|h|b;guise|伪装|h|b;gully|沟|h|b;gusto|热情|h|b;gusty|多阵风的|h|b;asked|ask 的过去式：问|e|i;baked|bake 的过去式：烤|e|i;moved|move 的过去式：移动|e|i;going|go 的现在分词：去|e|i;using|use 的现在分词：使用|e|i;dying|die 的现在分词：死亡|e|i;lying|lie 的现在分词：躺；说谎|e|i;eaten|eat 的过去分词：吃|e|i;given|give 的过去分词：给|e|i;known|know 的过去分词：知道|e|i;grown|grow 的过去分词：生长|e|i;shown|show 的过去分词：展示|e|i;arose|arise 的过去式：出现|h|i;awoke|awake 的过去式：醒来|h|i;broke|break 的过去式：打破|e|i;spoke|speak 的过去式：说|e|i;stole|steal 的过去式：偷|e|i;later|late 的比较级：更晚的|e|i;nicer|nice 的比较级：更好的|e|i;wider|wide 的比较级：更宽的|e|i;older|old 的比较级：更老的|e|i;plays|play 的第三人称单数：玩|e|i;walks|walk 的第三人称单数：走|e|i;talks|talk 的第三人称单数：谈话|e|i;reads|read 的第三人称单数：读|e|i;wants|want 的第三人称单数：想要|e|i;needs|need 的第三人称单数：需要|e|i;looks|look 的第三人称单数：看|e|i;helps|help 的第三人称单数：帮助|e|i;likes|like 的第三人称单数：喜欢|e|i;lives|life 的复数：生命|e|i;gives|give 的第三人称单数：给|e|i;takes|take 的第三人称单数：拿|e|i;makes|make 的第三人称单数：制作|e|i;comes|come 的第三人称单数：来|e|i;hands|hand 的复数：手|e|i;words|word 的复数：单词|e|i;times|time 的复数：时间|e|i;years|year 的复数：年|e|i;rooms|room 的复数：房间|e|i;doors|door 的复数：门|e|i;walls|wall 的复数：墙|e|i;trees|tree 的复数：树|e|i;birds|bird 的复数：鸟|e|i;songs|song 的复数：歌曲|e|i;games|game 的复数：游戏|e|i;names|name 的复数：名字|e|i;faces|face 的复数：脸|e|i;ideas|idea 的复数：想法|e|i;cocoa|可可|e|b;pupil|小学生|e|b;clerk|职员|e|b;sales|销售|e|b;token|代币；票券|e|b;route|路线|e|b;faith|信仰|e|b;scary|可怕的|e|b;quick|快的|e|b;truth|真相|e|b;hurry|匆忙|e|b;spare|空闲的|e|b;plain|简单的；平原|e|b;tough|艰难的；坚韧的|e|b;power|力量|e|b;block|方块；街区|e|b;medic|医护人员|h|b;panel|面板|h|b;press|按；新闻界|e|b;angle|角|e|b;focus|焦点|e|b;inner|内部的|e|b;camel|骆驼|e|b;bloom|开花|e|b;labor|劳动|e|b;motor|发动机|e|b;tutor|导师|e|b;craft|手艺|e|b;prose|散文|h|b;choir|合唱团|h|b;guard|守卫|e|b;troop|部队|e|b;chief|首领|e|b;union|联盟|e|b;adult|成年人|e|b;niece|侄女|e|b;draft|草稿|e|b;image|图像|e|b;label|标签|e|b;total|总数|e|b;reply|回答|e|b;issue|问题|e|b;cause|原因|e|b;alter|改变|e|b;elect|选择|e|b;while|一会儿|e|b;phase|阶段|e|b;slack|懒散的|h|b;treat|治疗|e|b";
@@ -141,28 +69,40 @@ var DICT5_S = "";
 var DICT6_S = "";
 var LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var PAD_ROWS = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
-var cfg = {tries:6, level:"e", filter:1, len:5, played:0, wins:0};
+var cfg = {len:5, tries:6, level:"e", filter:1, played:0, wins:0};
 var game = null;
+var screen = "setup";
+var setupFrom = "pre";
+var confirmTo = "";
 var recent = [];
+var M = {};
+var resizeTimer = null;
+
+function $(id){ return document.getElementById(id); }
+function clamp(v, a, b){ return v < a ? a : (v > b ? b : v); }
 
 function init(){
   DICT5_S = " " + DICT5 + " ";
   DICT6_S = " " + DICT6 + " ";
   loadCfg();
   parseBank();
-  fit();
-  refreshSetup();
-  openSetup();
-  if (window.addEventListener){ window.addEventListener("resize", fit, false); }
+  showSetup(false);
+  if (window.addEventListener){ window.addEventListener("resize", onResize, false); }
 }
 
-function fit(){
-  var w = window.innerWidth || document.documentElement.clientWidth || 600;
-  var f = Math.round(w / 40);
-  if (f < 13) { f = 13; }
-  if (f > 21) { f = 21; }
-  document.body.style.fontSize = f + "px";
+function onResize(){
+  if (resizeTimer) { clearTimeout(resizeTimer); }
+  resizeTimer = setTimeout(function(){ render(); }, 180);
 }
+
+function render(){
+  if (screen == "setup") { renderSetup(); }
+  else if (screen == "game") { renderGame(); }
+  else if (screen == "alpha") { renderAlpha(); }
+  else if (screen == "confirm") { renderConfirm(); }
+}
+
+/* ---------- 数据与设置 ---------- */
 
 function addBank(raw){
   var a = raw.split(";"), i, p;
@@ -185,81 +125,504 @@ function loadCfg(){
   if (!s) { return; }
   p = s.split("|");
   if (p.length >= 6){
-    cfg.tries = (p[0] == "5") ? 5 : 6;
-    cfg.level = (p[1] == "h") ? "h" : "e";
-    cfg.filter = (p[2] == "0") ? 0 : 1;
-    cfg.len = (p[3] == "6") ? 6 : 5;
+    cfg.len = (p[0] == "6") ? 6 : 5;
+    cfg.tries = parseInt(p[1], 10);
+    cfg.level = (p[2] == "h") ? "h" : "e";
+    cfg.filter = (p[3] == "0") ? 0 : 1;
     cfg.played = parseInt(p[4], 10) || 0;
     cfg.wins = parseInt(p[5], 10) || 0;
-  } else if (p.length >= 5){
-    cfg.tries = (p[0] == "5") ? 5 : 6;
-    cfg.level = (p[1] == "h") ? "h" : "e";
-    cfg.filter = (p[2] == "0") ? 0 : 1;
-    cfg.played = parseInt(p[3], 10) || 0;
-    cfg.wins = parseInt(p[4], 10) || 0;
   }
+  if (cfg.len != 5 && cfg.len != 6) { cfg.len = 5; }
+  if (!(cfg.tries >= 4 && cfg.tries <= 8)) { cfg.tries = 6; }
 }
 
 function saveCfg(){
-  var s = cfg.tries + "|" + cfg.level + "|" + cfg.filter + "|" + cfg.len + "|" + cfg.played + "|" + cfg.wins;
+  var s = cfg.len + "|" + cfg.tries + "|" + cfg.level + "|" + cfg.filter + "|" + cfg.played + "|" + cfg.wins;
   try { window.localStorage.setItem("wordle_kindle", s); } catch (e) {}
-}
-
-function sel(id, on){
-  var e = document.getElementById(id);
-  if (!e) { return; }
-  e.className = on ? "opt on" : "opt";
-}
-
-function refreshSetup(){
-  sel("optT5", cfg.tries == 5);
-  sel("optT6", cfg.tries == 6);
-  sel("optL5", cfg.len == 5);
-  sel("optL6", cfg.len == 6);
-  sel("optE", cfg.level == "e");
-  sel("optH", cfg.level == "h");
-  sel("optF1", cfg.filter == 1);
-  sel("optF0", cfg.filter == 0);
-  document.getElementById("stats").innerHTML = "已玩 " + cfg.played + " 局 · 胜 " + cfg.wins + " 局";
 }
 
 function setOpt(k, v){
   if (k == "tries") { cfg.tries = v; }
-  if (k == "len") { cfg.len = v; }
-  if (k == "level") { cfg.level = v; }
-  if (k == "filter") { cfg.filter = v; }
+  else if (k == "len") { cfg.len = v; }
+  else if (k == "level") { cfg.level = v; }
+  else if (k == "filter") { cfg.filter = v; }
   saveCfg();
-  refreshSetup();
+  renderSetup();
 }
 
-function openSetup(){
-  document.getElementById("setup").style.display = "block";
-  document.getElementById("game").style.display = "none";
-  document.getElementById("alpha").style.display = "none";
-  document.getElementById("tools").style.display = "none";
-  refreshSetup();
+/* ---------- 尺寸计算 ---------- */
+
+function baseMetrics(){
+  var de = document.documentElement;
+  var W = de.clientWidth || window.innerWidth || 600;
+  var H = de.clientHeight || window.innerHeight || 800;
+  var m = Math.max(6, Math.round(Math.min(W, H) * 0.02));
+  var wide = (W >= 740 && W > H * 1.15);
+  var appW = Math.min(W - 2 * m, wide ? 1280 : 760);
+  M = {
+    W:W, H:H, m:m, wide:wide,
+    appW:appW,
+    appH:H - 2 * m,
+    headerH: clamp(Math.round(H * 0.07), 44, 60),
+    statusH: clamp(Math.round(H * 0.038), 24, 34),
+    actionH: clamp(Math.round(H * 0.075), 48, 62),
+    keyH: clamp(Math.round(H * 0.058), 42, 56),
+    gap: Math.max(4, Math.round(H * 0.007))
+  };
 }
+
+function gameMetrics(rows, cols){
+  baseMetrics();
+  var padGap = Math.max(3, Math.round(M.keyH * 0.1));
+  var padH = 3 * M.keyH + 4 * padGap;
+  M.padGap = padGap;
+  M.padH = padH;
+  if (M.wide){
+    var rightW = Math.min(520, Math.round(M.appW * 0.44));
+    var leftW = M.appW - rightW - 2 * M.gap;
+    var bh = M.appH - M.headerH - 2 * M.gap;
+    var cw = (leftW - (cols + 1) * M.gap) / cols;
+    var ch = (bh - (rows + 1) * M.gap) / rows;
+    M.cell = Math.min(cw, ch, 118);
+    M.rightW = rightW; M.leftW = leftW; M.padW = rightW; M.boardW = leftW;
+  } else {
+    var bh2 = M.appH - M.headerH - M.statusH - M.actionH - padH - 4 * M.gap;
+    var cw2 = (M.appW - (cols + 1) * M.gap) / cols;
+    var ch2 = (bh2 - (rows + 1) * M.gap) / rows;
+    M.cell = Math.min(cw2, ch2, 96);
+    M.padW = M.appW;
+    M.boardW = M.appW;
+  }
+  M.cell = Math.max(20, Math.floor(M.cell));
+  M.keyW = Math.max(20, Math.floor((M.padW - 11 * M.padGap) / 10));
+  M.boardH = rows * M.cell + (rows + 1) * M.gap;
+  M.boardTableW = cols * M.cell + (cols + 1) * M.gap;
+}
+
+/* ---------- 通用片段 ---------- */
+
+function topbar(mode){
+  var tw = (mode == "setup") ? Math.min(M.appW, 900) : M.appW;
+  var h = '<table class="topbar" style="width:' + tw + 'px;height:' + M.headerH + 'px;table-layout:fixed;border-collapse:collapse;margin:0 auto;"><tr>';
+  h += '<td style="height:' + M.headerH + 'px;vertical-align:middle;text-align:left;white-space:nowrap">';
+  h += '<span class="brand" style="font-size:' + Math.round(M.headerH * 0.44) + 'px">WORDLE</span>';
+  h += '<span class="sub" style="font-size:' + Math.round(M.headerH * 0.22) + 'px;margin-left:7px">5/6 字母</span>';
+  h += '</td><td style="height:' + M.headerH + 'px;vertical-align:middle;text-align:right;white-space:nowrap">';
+  var bh = Math.round(clamp(M.headerH * 0.72, 36, 48));
+  var fs = Math.round(clamp(M.headerH * 0.29, 14, 19));
+  if (mode == "game"){
+    h += '<button class="tbtn" style="height:' + bh + 'px;font-size:' + fs + 'px" onclick="showSetup(true)">设置</button>';
+    h += '<button class="tbtn primary" style="height:' + bh + 'px;font-size:' + fs + 'px" onclick="newGameTap()">新一局</button>';
+  } else if (mode == "alpha"){
+    h += '<button class="tbtn" style="height:' + bh + 'px;font-size:' + fs + 'px" onclick="closeAlpha()">返回游戏</button>';
+  } else if (mode == "setup" && setupFrom == "mid"){
+    h += '<button class="tbtn" style="height:' + bh + 'px;font-size:' + fs + 'px" onclick="showGame()">返回本局</button>';
+  } else if (mode == "confirm"){
+    h += '<button class="tbtn" style="height:' + bh + 'px;font-size:' + fs + 'px" onclick="showGame()">返回本局</button>';
+  }
+  h += '</td></tr></table>';
+  h += '<div style="height:2px;background:#000000;width:' + tw + 'px;margin:0 auto"></div>';
+  return h;
+}
+
+function statusHtml(){
+  var label = (game.level == "e" ? "简单档" : "难档") + " · " + game.len + " 字母";
+  var right;
+  if (game.phase == "play"){
+    right = "剩余 " + (game.maxTries - game.rows.length) + " 次";
+  } else if (game.phase == "bonus"){
+    right = "剩余 0 次";
+  } else {
+    right = game.won ? "本局猜中" : "本局结束";
+  }
+  var fs = Math.round(clamp(M.statusH * 0.52, 12, 17));
+  return '<div class="status" style="height:' + M.statusH + 'px;line-height:' + M.statusH + 'px;font-size:' + fs + 'px">'
+    + '<span class="l">' + label + '</span>'
+    + '<span class="m" id="msg">' + (game.msg ? "· " + game.msg : "") + '</span>'
+    + '<span class="r">' + right + '</span>'
+    + '</div>';
+}
+
+function boardHtml(){
+  var cols = game.len, rows = game.maxTries, c = M.cell, g = M.gap, inner = c - 4;
+  var h = '<table style="border-collapse:separate;border-spacing:' + g + 'px;table-layout:fixed;width:' + M.boardTableW + 'px;margin:0 auto;">';
+  var r, k, cls, ch;
+  for (r = 0; r < rows; r++){
+    h += "<tr>";
+    for (k = 0; k < cols; k++){
+      cls = "cell"; ch = "";
+      if (r < game.rows.length){
+        ch = game.rows[r].charAt(k).toUpperCase();
+        cls = "cell s" + game.marks[r][k];
+      } else if (r == game.rows.length && game.phase == "play"){
+        cls = "cell on";
+        if (k < game.cur.length) { ch = game.cur.charAt(k); }
+      }
+      h += '<td id="c' + r + '_' + k + '" class="' + cls + '" style="width:' + inner + 'px;height:' + inner + 'px;line-height:' + inner + 'px;font-size:' + Math.round(c * 0.48) + 'px">' + ch + '</td>';
+    }
+    h += "</tr>";
+  }
+  h += "</table>";
+  return h;
+}
+
+function padHtml(){
+  var h = "", r, c, row, ch, w, kw = M.keyW, kh = M.keyH, pg = M.padGap;
+  var fs = Math.round(clamp(kh * 0.48, 14, 26));
+  for (r = 0; r < PAD_ROWS.length; r++){
+    row = PAD_ROWS[r];
+    w = row.length * kw + (row.length + 1) * pg;
+    h += '<table style="border-collapse:separate;border-spacing:' + pg + 'px;table-layout:fixed;width:' + w + 'px;margin:0 auto;">';
+    h += "<tr>";
+    for (c = 0; c < row.length; c++){
+      ch = row.charAt(c);
+      h += '<td class="key' + keyCls(ch) + '" id="k' + ch + '" onclick="tapLetter(&quot;' + ch + '&quot;)" style="width:' + (kw - 2) + 'px;height:' + (kh - 2) + 'px;line-height:' + (kh - 2) + 'px;font-size:' + fs + 'px">' + ch + '</td>';
+    }
+    h += "</tr></table>";
+  }
+  return h;
+}
+
+function keyCls(ch){
+  var st = game.status[ch];
+  if (st == 2) { return " k2"; }
+  if (st == 1) { return " k1"; }
+  if (st == -1) { return " k0"; }
+  return "";
+}
+
+function gridRow(width, items, height, gap, cls){
+  var n = items.length, cw = Math.floor(width / n), i;
+  var fs = Math.round(clamp(height * 0.33, 14, 22));
+  var h = '<table style="width:' + (cw * n) + 'px;table-layout:fixed;border-collapse:collapse"><tr>';
+  for (i = 0; i < n; i++){
+    var pad = (i > 0) ? gap : 0;
+    h += '<td style="width:' + (cw - pad) + 'px;padding:0 0 0 ' + pad + 'px;vertical-align:top">';
+    h += '<button class="' + cls + (items[i].on ? ' on' : '') + '" style="width:' + (cw - pad - 4) + 'px;height:' + (height - 4) + 'px;font-size:' + (items[i].fs || fs) + 'px" onclick="' + items[i].call + '">' + items[i].t + '</button>';
+    h += '</td>';
+  }
+  h += '</tr></table>';
+  return h;
+}
+
+function actionsHtml(){
+  var bh = Math.round(M.actionH * 0.84);
+  return '<div style="width:' + M.padW + 'px;margin:0 auto">' + gridRow(M.padW, [
+    {t:"提交", call:"submitGuess()"},
+    {t:"删除", call:"delLetter()"},
+    {t:"字母表", call:"openAlpha()"}
+  ], bh, M.gap, "btn") + '</div>';
+}
+
+/* ---------- 设置页 ---------- */
+
+function showSetup(fromGame){
+  setupFrom = (fromGame && game && (game.phase == "play" || game.phase == "bonus")) ? "mid" : "pre";
+  screen = "setup";
+  renderSetup();
+}
+
+function optTable(items, cols, key, width){
+  var bh = Math.round(clamp(M.H * 0.066, 50, 64));
+  var i, cur, list = [];
+  for (i = 0; i < items.length; i++){
+    cur = cfg[key];
+    list.push({
+      t:items[i].t,
+      call:"setOpt(&quot;" + key + "&quot;," + (typeof items[i].v == "string" ? "'" + items[i].v + "'" : items[i].v) + ')',
+      on:(cur == items[i].v)
+    });
+  }
+  return gridRow(width || Math.min(M.appW, 900), list, bh, M.gap, "opt");
+}
+
+function sectionHtml(label, inner, note){
+  var h = '<div style="margin-top:' + Math.round(M.H * 0.014) + 'px">';
+  h += '<div style="font-size:' + Math.round(clamp(M.H * 0.022, 15, 18)) + 'px;font-weight:bold;margin-bottom:4px">' + label + '</div>';
+  h += inner;
+  if (note) { h += '<div class="note" style="font-size:13px;margin-top:2px">' + note + '</div>'; }
+  h += '</div>';
+  return h;
+}
+
+function triesSec(w){
+  return sectionHtml("每局猜词次数", optTable([{v:4,t:"4 次"},{v:5,t:"5 次"},{v:6,t:"6 次"},{v:7,t:"7 次"},{v:8,t:"8 次"}], 5, "tries", w),
+    "次数越多越轻松；用完后还可追加 1 次机会（每局最多 1 次）。");
+}
+function lenSec(w){
+  return sectionHtml("单词长度", optTable([{v:5,t:"5 字母"},{v:6,t:"6 字母"}], 2, "len", w),
+    "5 字母和 6 字母各有一套词库，与次数自由组合。");
+}
+function levelSec(w){
+  return sectionHtml("词库档位", optTable([{v:"e",t:"简单档 · 高中"},{v:"h",t:"难档 · 进阶"}], 2, "level", w),
+    "简单档为高中常见词；难档为四六级、托福及更生僻的词。");
+}
+function filterSec(w){
+  return sectionHtml("词形过滤", optTable([{v:1,t:"仅原型"},{v:0,t:"含变形词"}], 2, "filter", w),
+    "“仅原型”排除 asked、going、broken 这类变形词，只留原形。");
+}
+
+function startBlockHtml(w){
+  var startLabel = (setupFrom == "mid") ? "返回本局" : "开始游戏";
+  var startCall = (setupFrom == "mid") ? "showGame()" : "startGame()";
+  var bh = Math.round(clamp(M.H * 0.08, 56, 74));
+  var h = '<div style="margin-top:' + Math.round(M.H * 0.018) + 'px">';
+  h += '<button class="btn primary" style="width:' + (w - 4) + 'px;height:' + (bh - 4) + 'px;font-size:' + Math.round(clamp(bh * 0.3, 17, 23)) + 'px" onclick="' + startCall + '">' + startLabel + '</button>';
+  if (setupFrom == "mid"){
+    h += '<button class="btn ghost" style="width:' + (w - 4) + 'px;height:' + Math.round(bh * 0.75) + 'px;font-size:15px;margin-top:8px" onclick="showConfirm(&quot;newgame&quot;)">放弃本局，按新设置开新局</button>';
+  }
+  h += '</div>';
+  return h;
+}
+
+function statsHtml(){
+  return '<div class="note" style="font-size:13px;margin-top:8px">已玩 ' + cfg.played + ' 局 · 胜 ' + cfg.wins + ' 局 · 词库 ' + BANK.length + ' 词</div>';
+}
+
+function legendHtml(){
+  return '<div class="hr" style="margin-top:10px;padding-top:8px">'
+    + '<div style="font-size:12px;color:#444;line-height:1.5">黑底：字母和位置都对；灰底：字母在答案里但位置不对；浅灰：答案里没有。游戏内点“字母表”可看 26 个字母的使用情况。</div>'
+    + '</div>';
+}
+
+function renderSetup(){
+  baseMetrics();
+  var w = Math.min(M.appW, 900);
+  var two = (M.W > M.H * 1.2 && M.H < 560);
+  var html = topbar("setup");
+  html += '<div style="width:' + w + 'px;margin:0 auto;padding-bottom:' + Math.round(M.H * 0.02) + 'px">';
+  html += '<div style="font-size:' + Math.round(clamp(M.H * 0.036, 22, 30)) + 'px;font-weight:bold;margin-top:' + M.gap + 'px">' + (setupFrom == "mid" ? "设置" : "开始一局") + '</div>';
+
+  if (setupFrom == "mid"){
+    html += '<div class="panel" style="padding:10px;margin-top:10px">'
+      + '<div style="font-weight:bold;font-size:16px">本局进行中：' + game.len + ' 字母 · 第 ' + (game.rows.length + 1) + '/' + game.maxTries + ' 次</div>'
+      + '<div class="note" style="font-size:13px;margin-top:4px">下面的改动只影响下一局；点“返回本局”继续当前进度，不会重新开局。</div>'
+      + '</div>';
+  }
+
+  if (two){
+    var colW = Math.floor((w - 2 * M.gap) / 2);
+    var left = triesSec(colW) + lenSec(colW);
+    var right = levelSec(colW) + filterSec(colW) + startBlockHtml(colW) + statsHtml();
+    html += '<table style="width:' + w + 'px;table-layout:fixed;border-collapse:collapse;margin-top:' + M.gap + 'px"><tr>'
+      + '<td style="width:' + colW + 'px;vertical-align:top">' + left + '</td>'
+      + '<td style="width:' + (2 * M.gap) + 'px"></td>'
+      + '<td style="width:' + colW + 'px;vertical-align:top">' + right + '</td>'
+      + '</tr></table>';
+  } else {
+    html += triesSec(w) + lenSec(w) + levelSec(w) + filterSec(w) + startBlockHtml(w) + statsHtml() + legendHtml();
+  }
+  html += '</div>';
+  $("app").innerHTML = html;
+}
+
+/* ---------- 游戏页 ---------- */
+
+function showGame(){
+  if (!game) { showSetup(false); return; }
+  screen = "game";
+  renderGame();
+}
+
+function renderGame(){
+  gameMetrics(game.maxTries, game.len);
+  var html = topbar("game");
+  var bodyH = M.appH - M.headerH - 2;
+  var board = '<div id="boardBox">' + boardHtml() + '</div>';
+  var r;
+
+  if (M.wide){
+    html += '<table style="width:' + M.appW + 'px;height:' + bodyH + 'px;table-layout:fixed;border-collapse:collapse;margin:0 auto"><tr>';
+    html += '<td style="width:' + M.leftW + 'px;height:' + bodyH + 'px;vertical-align:middle;text-align:center">' + board + '</td>';
+    html += '<td style="width:' + M.rightW + 'px;height:' + bodyH + 'px;vertical-align:top">' + rightCol() + '</td>';
+    html += '</tr></table>';
+  } else if (game.phase == "play"){
+    var boardArea = bodyH - M.statusH - M.actionH - M.padH;
+    html += '<table style="width:' + M.appW + 'px;height:' + bodyH + 'px;table-layout:fixed;border-collapse:collapse;margin:0 auto">';
+    html += '<tr><td style="height:' + M.statusH + 'px">' + statusHtml() + '</td></tr>';
+    html += '<tr><td style="height:' + boardArea + 'px;vertical-align:middle;text-align:center">' + board + '</td></tr>';
+    html += '<tr><td style="height:' + M.actionH + 'px">' + actionsHtml() + '</td></tr>';
+    html += '<tr><td style="height:' + M.padH + 'px">' + padHtml() + '</td></tr>';
+    html += '</table>';
+  } else {
+    var panelH = bodyH - M.statusH - M.boardH;
+    html += '<table style="width:' + M.appW + 'px;height:' + bodyH + 'px;table-layout:fixed;border-collapse:collapse;margin:0 auto">';
+    html += '<tr><td style="height:' + M.statusH + 'px">' + statusHtml() + '</td></tr>';
+    html += '<tr><td style="height:' + M.boardH + 'px;text-align:center">' + board + '</td></tr>';
+    html += '<tr><td style="height:' + panelH + 'px;vertical-align:top">' + panelHtml() + '</td></tr>';
+    html += '</table>';
+  }
+  $("app").innerHTML = html;
+  paintKeys();
+}
+
+function excludedCount(){
+  var i, ch, n = 0;
+  for (i = 0; i < 26; i++){
+    ch = LETTERS.charAt(i);
+    if (game.status[ch] == -1) { n++; }
+  }
+  return n;
+}
+
+function rightCol(){
+  var w = M.rightW;
+  var inner = w - 6 - 20;
+  M.padW = inner;
+  M.keyW = Math.max(18, Math.floor((inner - 11 * M.padGap) / 10));
+  var h = '<table style="width:' + w + 'px;height:' + (M.appH - M.headerH - 2) + 'px;table-layout:fixed;border-collapse:collapse"><tr><td style="vertical-align:middle">';
+  h += '<div class="panel" style="width:' + (w - 6) + 'px;margin:0 auto">';
+  h += '<div style="padding:10px">';
+  h += statusHtml();
+  if (game.phase == "play"){
+    h += '<div class="note" style="font-size:12px;margin:3px 0 9px">已猜 ' + game.rows.length + ' / ' + game.maxTries + ' 次 · 已排除 ' + excludedCount() + ' 个字母</div>';
+    h += actionsHtml();
+    h += '<div style="height:8px"></div>';
+    h += padHtml();
+    h += '<div class="note" style="font-size:12px;margin-top:9px;line-height:1.45">黑底＝字母和位置都对；灰底＝有此字母但位置不对；浅灰＝答案里没有。</div>';
+  } else {
+    h += '<div style="height:10px"></div>';
+    h += resultBody(inner);
+  }
+  h += '</div></div></td></tr></table>';
+  return h;
+}
+
+function resultBody(innerW){
+  var fs1 = Math.round(clamp(M.H * 0.026, 17, 24));
+  var fs2 = Math.round(clamp(M.H * 0.021, 13, 16));
+  var fs3 = Math.round(clamp(M.H * 0.055, 30, 44));
+  var bh = Math.round(clamp(M.actionH * 0.9, 46, 64));
+  var h = "";
+  if (game.phase == "bonus"){
+    h += '<div style="font-size:' + fs1 + 'px;font-weight:bold">机会用完了</div>';
+    h += '<div class="note" style="font-size:' + fs2 + 'px;margin-top:6px">本局已用 ' + game.maxTries + ' 次。可以追加 1 次机会（每局最多追加一次），也可以直接看答案。</div>';
+    h += '<div style="margin-top:10px">' + gridRow(innerW, [
+      {t:"加一次机会", call:"addBonus()", fs:18},
+      {t:"查看答案", call:"viewAnswer()"}
+    ], bh, M.gap, "btn") + '</div>';
+  } else {
+    if (game.won) { h += '<div style="font-size:' + fs1 + 'px">猜对了，用了 ' + game.rows.length + ' 次</div>'; }
+    else { h += '<div style="font-size:' + fs1 + 'px">没猜中' + (game.bonusUsed ? '（已追加 1 次）' : '') + '，答案是</div>'; }
+    h += '<div style="font-size:' + fs3 + 'px;font-weight:bold;letter-spacing:2px;margin:6px 0">' + game.answer.toUpperCase() + '</div>';
+    h += '<div style="font-size:' + fs2 + 'px">' + game.gloss + '</div>';
+    h += '<div style="margin-top:10px">' + gridRow(innerW, [
+      {t:"再来一局", call:"startGame()"},
+      {t:"改设置", call:"showSetup(false)"}
+    ], bh, M.gap, "btn") + '</div>';
+  }
+  return h;
+}
+
+function panelHtml(){
+  var w = (M.wide ? M.rightW : M.appW);
+  var inner = w - 6 - 20;
+  var h = '<div class="panel" style="width:' + (w - 6) + 'px;margin:' + M.gap + 'px auto 0 auto">';
+  h += '<div style="padding:10px">' + resultBody(inner) + '</div>';
+  h += '</div>';
+  return h;
+}
+
+/* ---------- 字母表 ---------- */
+
+function openAlpha(){
+  if (!game) { return; }
+  screen = "alpha";
+  renderAlpha();
+}
+
+function closeAlpha(){
+  if (!game) { showSetup(false); return; }
+  screen = "game";
+  renderGame();
+}
+
+function renderAlpha(){
+  baseMetrics();
+  var portrait = (M.appW / M.appH < 0.92);
+  var cols = portrait ? 5 : 7;
+  var rows = Math.ceil(26 / cols);
+  var infoH = Math.round(clamp(M.H * 0.1, 58, 90));
+  var cw = (M.appW - (cols + 1) * M.gap) / cols;
+  var chh = (M.appH - M.headerH - infoH - (rows + 1) * M.gap) / rows;
+  var cell = Math.floor(Math.min(cw, chh, 120));
+  cell = Math.max(28, cell);
+  var inner = cell - 2;
+  var h = topbar("alpha");
+  h += '<div style="width:' + M.appW + 'px;margin:0 auto;padding-top:' + M.gap + 'px;text-align:center">';
+  h += '<table style="border-collapse:separate;border-spacing:' + M.gap + 'px;table-layout:fixed;margin:0 auto">';
+  var r, c, i, ch, cls, left = 0, used = [];
+  for (r = 0; r < rows; r++){
+    h += "<tr>";
+    for (c = 0; c < cols; c++){
+      i = r * cols + c;
+      if (i < 26){
+        ch = LETTERS.charAt(i);
+        var st = game.status[ch];
+        cls = "acell";
+        if (st == 2) { cls = "acell a2"; }
+        else if (st == 1) { cls = "acell a1"; }
+        else if (st == -1) { cls = "acell a0"; }
+        h += '<td class="' + cls + '" style="width:' + inner + 'px;height:' + inner + 'px;line-height:' + inner + 'px;font-size:' + Math.round(cell * 0.45) + 'px">' + ch + '</td>';
+      } else {
+        h += '<td class="acell na" style="width:' + inner + 'px;height:' + inner + 'px"></td>';
+      }
+    }
+    h += "</tr>";
+  }
+  h += "</table>";
+  for (i = 0; i < 26; i++){
+    ch = LETTERS.charAt(i);
+    if (game.status[ch] == -1) { used.push(ch); } else { left++; }
+  }
+  h += '<div class="note" style="font-size:14px;margin-top:' + (M.gap * 2) + 'px">未排除字母：' + left + ' 个';
+  if (used.length > 0) { h += '<br>已排除：' + used.join(" "); }
+  h += '</div>';
+  h += '<div class="note" style="font-size:13px;margin-top:8px;color:#444">黑底＝位置正确；灰底＝有此字母但位置不对；浅灰＝已排除；白底＝未使用。</div>';
+  h += '</div>';
+  $("app").innerHTML = h;
+}
+
+/* ---------- 确认页 ---------- */
+
+function showConfirm(to){
+  confirmTo = to;
+  screen = "confirm";
+  renderConfirm();
+}
+
+function renderConfirm(){
+  baseMetrics();
+  var w = Math.min(M.appW, 520);
+  var bh = Math.round(clamp(M.H * 0.085, 56, 76));
+  var h = topbar("none");
+  h += '<div style="width:' + w + 'px;margin:0 auto;padding-top:' + Math.round(M.H * 0.06) + 'px">';
+  h += '<div style="font-size:' + Math.round(clamp(M.H * 0.036, 22, 30)) + 'px;font-weight:bold">放弃本局？</div>';
+  h += '<div class="note" style="font-size:15px;margin:10px 0 18px">本局已到第 ' + game.rows.length + ' / ' + game.maxTries + ' 次，放弃后进度不会保留。</div>';
+  h += '<button class="btn primary" style="width:' + (w - 4) + 'px;height:' + (bh - 4) + 'px;font-size:19px;margin-bottom:10px" onclick="showGame()">继续本局</button>';
+  h += '<button class="btn ghost" style="width:' + (w - 4) + 'px;height:' + (bh - 4) + 'px;font-size:17px" onclick="startGame()">放弃并开新局</button>';
+  h += '</div>';
+  $("app").innerHTML = h;
+}
+
+/* ---------- 游戏逻辑 ---------- */
 
 function inRecent(w){
   var i;
-  for (i = 0; i < recent.length; i++){
-    if (recent[i] == w) { return true; }
-  }
+  for (i = 0; i < recent.length; i++){ if (recent[i] == w) { return true; } }
   return false;
 }
 
-function pickAnswer(){
+function pickAnswer(len){
   var pool = [], avail = [], i, k;
   for (i = 0; i < BANK.length; i++){
     if (BANK[i].lv != cfg.level) { continue; }
-    if (BANK[i].w.length != cfg.len) { continue; }
+    if (BANK[i].w.length != len) { continue; }
     if (cfg.filter == 1 && BANK[i].fm == "i") { continue; }
     pool.push(BANK[i]);
   }
   if (pool.length === 0){ pool = BANK.slice(0); }
-  for (i = 0; i < pool.length; i++){
-    if (!inRecent(pool[i].w)) { avail.push(pool[i]); }
-  }
+  for (i = 0; i < pool.length; i++){ if (!inRecent(pool[i].w)) { avail.push(pool[i]); } }
   if (avail.length < 2) { avail = pool; }
   k = Math.floor(Math.random() * avail.length);
   recent.push(avail[k].w);
@@ -268,83 +631,51 @@ function pickAnswer(){
 }
 
 function startGame(){
-  var rec = pickAnswer(), c;
-  game = {answer:rec.w, gloss:rec.g, rows:[], cur:"", over:false, won:false, status:{}, row:0};
-  buildGrid();
-  buildPad();
-  document.getElementById("setup").style.display = "none";
-  document.getElementById("alpha").style.display = "none";
-  document.getElementById("game").style.display = "block";
-  document.getElementById("tools").style.display = "block";
-  document.getElementById("result").style.display = "none";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("padBox").style.display = "block";
-  document.getElementById("actionRow").style.display = "";
-  document.getElementById("btnSubmit").style.display = "";
-  document.getElementById("btnDel").style.display = "";
-  document.getElementById("msg").innerHTML = "";
-  document.getElementById("tryLeft").innerHTML = "剩余 " + cfg.tries + " 次";
-  document.getElementById("levelTag").innerHTML = ((cfg.level == "e") ? "简单档" : "难档") + " · " + cfg.len + " 字母";
-  for (c = 0; c < cfg.len; c++){
-    document.getElementById("c0_" + c).className = "cell on";
-  }
+  var rec = pickAnswer(cfg.len);
+  game = {
+    answer:rec.w, gloss:rec.g, level:cfg.level, len:cfg.len,
+    baseTries:cfg.tries, maxTries:cfg.tries, bonusUsed:false,
+    rows:[], marks:[], cur:"", phase:"play", won:false, status:{}, msg:'点字母输入'
+  };
+  screen = "game";
+  renderGame();
 }
 
-function buildGrid(){
-  var n = cfg.tries, cols = cfg.len, h = "", r, c, w;
-  w = (cols == 6) ? "78%" : "64%";
-  h += '<table class="grid" style="width:' + w + '">';
-  for (r = 0; r < n; r++){
-    h += "<tr>";
-    for (c = 0; c < cols; c++){
-      h += '<td class="cell" id="c' + r + '_' + c + '"></td>';
-    }
-    h += "</tr>";
+function newGameTap(){
+  if (game && (game.phase == "play" || game.phase == "bonus") && game.rows.length > 0){
+    showConfirm("newgame");
+    return;
   }
-  h += "</table>";
-  document.getElementById("gridBox").innerHTML = h;
+  startGame();
 }
 
-function buildPad(){
-  var h = "", r, c, row, ch, w;
-  for (r = 0; r < PAD_ROWS.length; r++){
-    row = PAD_ROWS[r];
-    w = (r == 0) ? 100 : (r == 1) ? 90 : 70;
-    h += '<table class="pad" style="width:' + w + '%">';
-    h += "<tr>";
-    for (c = 0; c < row.length; c++){
-      ch = row.charAt(c);
-      h += '<td class="key" id="k' + ch + '" onclick="tapLetter(&quot;' + ch + '&quot;)">' + ch + '</td>';
-    }
-    h += "</tr>";
-    h += "</table>";
-  }
-  document.getElementById("padBox").innerHTML = h;
-}
-
-function paintRow(){
-  var i, el;
-  for (i = 0; i < cfg.len; i++){
-    el = document.getElementById("c" + game.row + "_" + i);
-    el.innerHTML = (i < game.cur.length) ? game.cur.charAt(i) : "";
-    el.className = "cell on";
-  }
+function setMsg(t){
+  game.msg = t;
+  var e = $("msg");
+  if (e) { e.innerHTML = t; }
 }
 
 function tapLetter(ch){
-  if (!game || game.over) { return; }
-  if (game.cur.length >= cfg.len) { return; }
+  if (!game || game.phase != "play") { return; }
+  if (game.cur.length >= game.len) { return; }
   game.cur += ch;
-  paintRow();
-  document.getElementById("msg").innerHTML = "";
+  paintCell(game.rows.length, game.cur.length - 1);
+  setMsg("");
 }
 
 function delLetter(){
-  if (!game || game.over) { return; }
+  if (!game || game.phase != "play") { return; }
   if (game.cur.length > 0){
     game.cur = game.cur.substring(0, game.cur.length - 1);
-    paintRow();
+    paintCell(game.rows.length, game.cur.length);
   }
+}
+
+function paintCell(r, c){
+  var e = $("c" + r + "_" + c);
+  if (!e) { return; }
+  e.innerHTML = (c < game.cur.length) ? game.cur.charAt(c) : "";
+  e.className = "cell on";
 }
 
 function score(g, a, n){
@@ -367,35 +698,19 @@ function inDict(w){
   return DICT5_S.indexOf(" " + w + " ") >= 0;
 }
 
-function paintKeys(){
-  var i, ch, st, el;
-  for (i = 0; i < 26; i++){
-    ch = LETTERS.charAt(i);
-    st = game.status[ch];
-    el = document.getElementById("k" + ch);
-    if (!el) { continue; }
-    if (st == 2) { el.className = "key k2"; }
-    else if (st == 1) { el.className = "key k1"; }
-    else if (st == -1) { el.className = "key k0"; }
-    else { el.className = "key"; }
-  }
-}
-
 function submitGuess(){
-  if (!game || game.over) { return; }
-  if (game.cur.length < cfg.len){
-    document.getElementById("msg").innerHTML = "还差 " + (cfg.len - game.cur.length) + " 个字母";
+  if (!game || game.phase != "play") { return; }
+  if (game.cur.length < game.len){
+    setMsg("还差 " + (game.len - game.cur.length) + " 个字母");
     return;
   }
-  var g = game.cur, low = g.toLowerCase(), i, ch, el, win = true, marks;
+  var g = game.cur, low = g.toLowerCase(), i, ch, win = true, marks;
   if (!inDict(low)){
-    document.getElementById("msg").innerHTML = "词库里没有 " + g;
+    setMsg("词库里没有 " + g);
     return;
   }
-  marks = score(low, game.answer, cfg.len);
-  for (i = 0; i < cfg.len; i++){
-    el = document.getElementById("c" + game.row + "_" + i);
-    el.className = "cell s" + marks[i];
+  marks = score(low, game.answer, game.len);
+  for (i = 0; i < game.len; i++){
     ch = g.charAt(i);
     if (marks[i] == 2){ game.status[ch] = 2; }
     else if (marks[i] == 1){ if (game.status[ch] != 2) { game.status[ch] = 1; } }
@@ -403,84 +718,77 @@ function submitGuess(){
     if (marks[i] != 2) { win = false; }
   }
   game.rows.push(low);
-  game.row++;
+  game.marks.push(marks);
   game.cur = "";
+  setMsg("");
+  $("boardBox").innerHTML = boardHtml();
   paintKeys();
-  document.getElementById("tryLeft").innerHTML = "剩余 " + (cfg.tries - game.rows.length) + " 次";
-  document.getElementById("msg").innerHTML = "";
-  if (win){ endGame(true); return; }
-  if (game.rows.length >= cfg.tries){ endGame(false); return; }
-  for (i = 0; i < cfg.len; i++){
-    document.getElementById("c" + game.row + "_" + i).className = "cell on";
+  if (win){ finishAnswer(true); return; }
+  if (game.rows.length >= game.maxTries){ onLose(); return; }
+  var nextRow = game.rows.length;
+  for (i = 0; i < game.len; i++){
+    var e = $("c" + nextRow + "_" + i);
+    if (e) { e.className = "cell on"; }
   }
 }
 
-function endGame(won){
-  game.over = true;
+function paintKeys(){
+  var i, ch, el;
+  for (i = 0; i < 26; i++){
+    ch = LETTERS.charAt(i);
+    el = $("k" + ch);
+    if (el) { el.className = "key" + keyCls(ch); }
+  }
+}
+
+function onLose(){
+  if (!game.bonusUsed){
+    game.phase = "bonus";
+    game.msg = "";
+    renderGame();
+  } else {
+    finishAnswer(false);
+  }
+}
+
+function addBonus(){
+  if (!game || game.phase != "bonus" || game.bonusUsed) { return; }
+  game.bonusUsed = true;
+  game.maxTries++;
+  game.phase = "play";
+  game.msg = "已追加 1 次机会";
+  renderGame();
+}
+
+function viewAnswer(){
+  if (!game || game.phase != "bonus") { return; }
+  finishAnswer(false);
+}
+
+function finishAnswer(won){
+  if (!game) { return; }
+  game.phase = "answer";
   game.won = won;
   cfg.played++;
   if (won) { cfg.wins++; }
   saveCfg();
-  document.getElementById("padBox").style.display = "none";
-  document.getElementById("actionRow").style.display = "none";
-  document.getElementById("btnSubmit").style.display = "none";
-  document.getElementById("btnDel").style.display = "none";
-  document.getElementById("msg").innerHTML = "";
-  var h = '<div class="result">';
-  if (won) { h += '<div class="rt">猜对了，用了 ' + game.rows.length + ' 次</div>'; }
-  else { h += '<div class="rt">没猜中，答案是</div>'; }
-  h += '<div class="rw">' + game.answer.toUpperCase() + '</div>';
-  h += '<div class="rg">' + game.gloss + '</div>';
-  h += '<table class="actionrow"><tr>';
-  h += '<td><button class="act" onclick="startGame()">再来一局</button></td>';
-  h += '<td><button class="act" onclick="openAlpha()">字母表</button></td>';
-  h += '<td><button class="act" onclick="openSetup()">改设置</button></td>';
-  h += '</tr></table>';
-  h += '</div>';
-  var box = document.getElementById("result");
-  box.innerHTML = h;
-  box.style.display = "block";
+  game.msg = "";
+  renderGame();
 }
 
-function openAlpha(){
-  if (!game) { return; }
-  var h = '<table class="alpha">', r, c, ch, st, cls, i, left = 0, used = [], s;
-  for (r = 0; r < 4; r++){
-    h += "<tr>";
-    for (c = 0; c < 7; c++){
-      i = r * 7 + c;
-      if (i < 26){
-        ch = LETTERS.charAt(i);
-        st = game.status[ch];
-        if (st == 2) { cls = "acell a2"; }
-        else if (st == 1) { cls = "acell a1"; }
-        else if (st == -1) { cls = "acell a0"; }
-        else { cls = "acell"; }
-        h += '<td class="' + cls + '">' + ch + '</td>';
-      } else {
-        h += '<td class="acell na"></td>';
-      }
-    }
-    h += "</tr>";
-  }
-  h += "</table>";
-  document.getElementById("alphaBody").innerHTML = h;
-  for (i = 0; i < 26; i++){
-    ch = LETTERS.charAt(i);
-    if (game.status[ch] == -1) { used.push(ch); }
-    else { left++; }
-  }
-  s = "未排除字母：" + left + " 个";
-  if (used.length > 0) { s += "<br>已排除：" + used.join(" "); }
-  document.getElementById("alphaInfo").innerHTML = s;
-  document.getElementById("game").style.display = "none";
-  document.getElementById("alpha").style.display = "block";
-}
-
-function closeAlpha(){
-  document.getElementById("alpha").style.display = "none";
-  document.getElementById("game").style.display = "block";
-}
+document.onkeydown = function(ev){
+  if (screen != "game" || !game || game.phase != "play") { return; }
+  var e = ev || window.event;
+  var k = e.keyCode;
+  var t = e.target || e.srcElement;
+  if (t && t.tagName == "BUTTON" && t.blur) { t.blur(); }
+  if (k == 13) { submitGuess(); }
+  else if (k == 8) { delLetter(); }
+  else if (k >= 65 && k <= 90) { tapLetter(String.fromCharCode(k)); }
+  else { return; }
+  if (e.preventDefault) { e.preventDefault(); }
+  return false;
+};
 </script>
 </body>
 </html>
