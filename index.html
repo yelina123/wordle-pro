@@ -379,6 +379,10 @@ function statsHtml(){
   return '<div class="note" style="font-size:13px;margin-top:8px">已玩 ' + cfg.played + ' 局 · 胜 ' + cfg.wins + ' 局 · 词库 ' + BANK.length + ' 词</div>';
 }
 
+function creditHtml(){
+  return '<div style="margin-top:12px;padding-top:8px;border-top:1px solid #c8c8c8;text-align:center;font-size:12px;color:#666;line-height:1.7">作者 yelina123 · 仓库 <a href="https://github.com/yelina123/wordle-pro" target="_blank" rel="noopener" style="color:#222;text-decoration:underline">github.com/yelina123/wordle-pro</a></div>';
+}
+
 function legendHtml(){
   return '<div class="hr" style="margin-top:10px;padding-top:8px">'
     + '<div style="font-size:12px;color:#444;line-height:1.5">黑底：字母和位置都对；灰底：字母在答案里但位置不对；浅灰：答案里没有。游戏内点“字母表”可看 26 个字母的使用情况。</div>'
@@ -412,6 +416,7 @@ function renderSetup(){
   } else {
     html += triesSec(w) + lenSec(w) + levelSec(w) + filterSec(w) + startBlockHtml(w) + statsHtml() + legendHtml();
   }
+  html += creditHtml();
   html += '</div>';
   $("app").innerHTML = html;
 }
